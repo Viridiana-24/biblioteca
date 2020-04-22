@@ -13,7 +13,7 @@ app.get('/usuario', [verificaToken],  (req, res) => {
                     ok: false,
                     err
                 });
-            }
+            }                       ////entonces primero se elimina, guardas, commmit inicial 2, 3, origin, heroku, diploy, clic para compliar otravez 
             return res.status(200).json({
                 ok: true,
                 count: usuarios.length,
@@ -22,7 +22,7 @@ app.get('/usuario', [verificaToken],  (req, res) => {
         });
 });
 
-app.post('/usuario', (req, res) => {
+app.post('/usuario',[verificaToken], (req, res) => {
     let body = req.body;
 
     let usuario = new Usuario({
