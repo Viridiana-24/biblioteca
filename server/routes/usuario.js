@@ -22,7 +22,7 @@ app.get('/usuario', [verificaToken],  (req, res) => {
         });
 });    
 
-app.post('/usuario', (req, res) => {
+app.post('/usuario',[verificaToken], (req, res) => {
     let body = req.body;
 
     let usuario = new Usuario({
@@ -47,7 +47,7 @@ app.post('/usuario', (req, res) => {
 
 app.put('/usuario/:id', (req, res) => {
     let id = req.body.id;
-    let body = _.pick(req.body, ['nombre', 'estado', 'role', 'img']);
+    let body = _.pick(req.body, ['nombre', 'email']);
 
     Usuario.findByIdAndUpdate(id, body, { new: true, runValidators: true, context: 'query' }, (err, usrDB) => {
         if (err) {
