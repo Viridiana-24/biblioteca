@@ -5,7 +5,7 @@ const Usuario = require('../models/usuario');
 const app = express();
 const { verificaToken } = require('../middlewares/autenticacion');
 
-app.get('/usuario', [verificaToken],  (req, res) => {
+app.get('/usuario',  (req, res) => {
     Usuario.find({ estado: true })
         .exec((err, usuarios) => {
             if (err) {
