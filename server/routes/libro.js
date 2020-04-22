@@ -5,7 +5,7 @@ const app = express();
 const { verificaToken } = require('../middlewares/autenticacion');
 
 
-app.get('/libro', [verificaToken], (req, res) => {
+app.get('/libro', (req, res) => {
     Libro.find({ disponible: true })
         .exec((err, libros) => {
             if (err) {
