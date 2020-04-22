@@ -45,23 +45,24 @@ app.post('/usuario',[verificaToken], (req, res) => {
     });
 });
 
-app.put('/usuario/:id', (req, res) => {
-    let id = req.body.id;
-    let body = _.pick(req.body, ['nombre', 'email']);
-
-    Usuario.findByIdAndUpdate(id, body, { new: true, runValidators: true, context: 'query' }, (err, usrDB) => {
-        if (err) {
-            return res.status(400).json({
-                ok: false,
-                err
-            });
-        }
-        return res.status(200).json({
-            ok: true,
-            usrDB
+app.put('/usuario/:id', function (req, res){
+    let id = req.params.id;
+    let body = _.pick(req.body, ['nombre','email']);
+ 
+    Usuario.findByIdAndUpdate(id, body, { new: true, runValidators: true, context: 'query'}, (err, usrDB) => {
+      if(err){
+        return res.status(400).json({
+            ok: false,
+            mensaje: `Ocurrio un error al momento de actualizar ${err}`
         });
+      }
+      return res.json({
+        ok: true,
+        mensaje: 'Cambios guardados con exito',
+        usuario: usrDB 
+      });
     });
-});
+  });
 
 app.delete('/usuario/:id', (req, res) => {
     let id = req.body.id;
