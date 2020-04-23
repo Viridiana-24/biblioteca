@@ -2,8 +2,6 @@ const express = require('express');
 const _ = require('underscore');
 const Libro = require('../models/libro');
 const app = express();
-const { verificaToken } = require('../middlewares/autenticacion');
-
 
 app.get('/libro', (req, res) => {
     Libro.find({ disponible: true })
@@ -22,7 +20,7 @@ app.get('/libro', (req, res) => {
         });
 });
 
-app.post('/libro', [verificaToken], (req, res) => {
+app.post('/libro', (req, res) => {
     let body = req.body;
 
     let libro = new Libro({

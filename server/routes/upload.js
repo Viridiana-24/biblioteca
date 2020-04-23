@@ -1,5 +1,4 @@
 const express = require('express');
-//const { verificatoken } = require('../middlewares/autenticacion');
 const fileupload = require('express-fileupload');
 const uniqid = require('uniqid');
 const path = require('path');
@@ -102,7 +101,6 @@ function imgUsuario(id, res, nombreImagen) {
         });
     });
 }
-
 function imgLibro(id, res, nombreImagen) {
     Libro.findById(id, (err, lib) => {
         if (err) {
@@ -140,6 +138,15 @@ function imgLibro(id, res, nombreImagen) {
             });
         });
     });
+}
+
+function borrarArchivo(nombreImagen, ruta) {
+    let pathimg = path.resolve(_direname, `../../uploads/${ruta}/${nombreImagen}`);
+    if( fetch.existsSync(pathimg)) {
+        fs.unlinkSync(pathimg);
+    }
+    console.log('Imagen Borrada');
+    
 }
 
 module.exports = app;
